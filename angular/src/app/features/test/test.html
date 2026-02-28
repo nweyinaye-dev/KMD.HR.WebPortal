@@ -1,0 +1,18 @@
+<div class="toolbar">
+  <button class="btn-add" (click)="null">＋ Add (use grid add)</button>
+</div>
+
+<dx-data-grid [dataSource]="employees" [keyExpr]="keyExpr" (onRowUpdating)="onRowUpdating($event)"
+  (onRowInserted)="onRowInserted($event)" (onRowRemoving)="onRowRemoving($event)">
+  <dxo-paging [enabled]="true"></dxo-paging>
+
+  <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true"
+    [useIcons]="true"></dxo-editing>
+
+  <dxi-column dataField="Prefix" caption="Title"></dxi-column>
+  <dxi-column dataField="FirstName" caption="First Name"></dxi-column>
+  <dxi-column dataField="LastName" caption="Last Name"></dxi-column>
+  <dxi-column dataField="Position" caption="Position"></dxi-column>
+  <dxi-column dataField="State" caption="State"></dxi-column>
+  <dxi-column dataField="BirthDate" caption="Birth Date" dataType="date"></dxi-column>
+</dx-data-grid>

@@ -14,6 +14,8 @@ import 'mousetrap';
 
 // bootstrap import
 import { NgbDropdownModule, NgbNavModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DxButtonModule } from 'devextreme-angular/ui/button';
+import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { NgbDropdownModule, NgbNavModule, NgbModule } from '@ng-bootstrap/ng-boo
     NgbDropdownModule,
     NgbNavModule,
     NgbModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    DxDataGridModule,
+    DxButtonModule
   ],
   exports: [
     CommonModule,

@@ -15,6 +15,9 @@ const routes: Routes = [
         path: '',
         redirectTo: '/analytics',
         pathMatch: 'full'
+      },{
+        path: 'test',
+        loadComponent: () => import('./features/test/test').then((c) => c.Test)
       },
       {
         path: 'analytics',
