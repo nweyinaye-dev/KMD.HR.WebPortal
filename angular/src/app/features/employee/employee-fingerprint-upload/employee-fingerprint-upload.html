@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Attendance Upload">
+      <div class="">
+        <dx-file-uploader
+          [multiple]="true"
+          uploadMode="useButtons"
+          [showFileList]="true"
+          accept="*"
+          labelText="or click here"
+          selectButtonText="Select Files"
+          (onValueChanged)="onFilesSelected($event)"
+          [dropZone]="'#dropZoneArea'"
+        ></dx-file-uploader>
+
+        <div id="dropZoneArea" class="upload-drop-zone">
+          <div class="drop-zone-content">
+            <i class="dx-icon-upload upload-icon"></i>
+            <div class="drop-zone-text">
+              <span class="bold-text">Drag and drop files</span>
+              <span class="light-text">or click here</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-sm-12">
+    <dx-data-grid
+      id="gridContainer"
+      [dataSource]="dataSource"
+      keyExpr="id"
+      [showBorders]="true"
+      [allowColumnResizing]="true"
+      [columnAutoWidth]="true"
+      (onEditingStart)="onEditingStart($event)"
+      (onInitNewRow)="onInitNewRow($event)"
+      (onToolbarPreparing)="onToolbarPreparing($event)"
+    >
+      <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true"></dxo-editing>
+
+      <dxi-column type="buttons" caption="Action" [width]="100">
+        <dxi-button name="edit" icon="edit" hint="Edit"></dxi-button>
+        <dxi-button name="delete" icon="trash" hint="Delete" cssClass="btn-delete-red"></dxi-button>
+      </dxi-column>
+
+      <dxi-column dataField="id" [allowEditing]="false" caption="ID" [width]="50"></dxi-column>
+      <dxi-column dataField="deptCode" caption="Department Code">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-column>
+      <dxi-column dataField="deptName" caption="Name">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-column>
+      <dxi-column dataField="deptShort" caption="Short">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-column>
+
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50]"></dxo-pager>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+    </dx-data-grid>
+  </div>
+</div>

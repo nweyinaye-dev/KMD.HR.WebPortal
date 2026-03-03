@@ -1,0 +1,152 @@
+.attendance-page {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.attendance-card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+/* Header & Filters */
+.attendance-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #edf2f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  .header-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2d3e50;
+    margin: 0;
+  }
+
+  .header-filters {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    .filter-date-range {
+      width: 250px;
+    }
+
+    .filter-select {
+      width: 160px;
+    }
+  }
+}
+
+.attendance-body {
+  padding: 1.5rem 2rem;
+}
+
+/* Grid Controls (Search/Pagination) */
+.grid-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  .pagination-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: #6c757d;
+
+    .page-size-select {
+      width: 80px;
+    }
+  }
+
+  .search-control {
+    .grid-search-box {
+      width: 200px;
+      border-radius: 4px;
+    }
+  }
+}
+
+/* Premium Grid Refinements */
+::ng-deep .premium-grid {
+  .dx-datagrid-headers {
+    background-color: #f1f4f8;
+    color: #4a5568;
+    font-weight: 600;
+    border-bottom: 1px solid #edf2f9;
+  }
+
+  .dx-datagrid-rowsview .dx-row {
+    border-bottom: 1px solid #edf2f9;
+    height: 52px;
+  }
+
+  .dx-datagrid-content .dx-datagrid-table .dx-row > td {
+    vertical-align: middle;
+    font-size: 0.9rem;
+  }
+}
+
+/* Status Badges with Dot */
+.status-badge-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  &.present {
+    background-color: #dcfce7;
+    color: #15803d;
+    .dot { background-color: #22c55e; }
+  }
+
+  &.absent {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    .dot { background-color: #ef4444; }
+  }
+
+  &.late {
+    background-color: #fef9c3;
+    color: #a16207;
+    .dot { background-color: #eab308; }
+  }
+}
+
+/* Production Hours Rounded Badges */
+.production-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+
+  i {
+    font-size: 0.85rem;
+  }
+
+  &.bg-success { background-color: #22c55e; }
+  &.bg-primary { background-color: #3b82f6; }
+  &.bg-danger { background-color: #ef4444; }
+}

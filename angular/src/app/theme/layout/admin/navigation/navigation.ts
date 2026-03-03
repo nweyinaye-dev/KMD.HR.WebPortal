@@ -34,7 +34,7 @@ export const NavigationItems: NavigationItem[] = [
       }
     ]
   },
-    {
+  {
     id: 'employee',
     title: 'Employee',
     type: 'group',
@@ -48,7 +48,8 @@ export const NavigationItems: NavigationItem[] = [
         icon: 'feather icon-home'
       }
     ]
-  }, {
+  },
+  {
     id: 'attendance',
     title: 'Attendance',
     type: 'group',
@@ -58,18 +59,19 @@ export const NavigationItems: NavigationItem[] = [
         id: 'attendanceupload',
         title: 'Upload',
         type: 'item',
-        url: '/analytics',
+        url: '/employee/fingerprint-upload',
         icon: 'feather icon-home'
-      },{
+      },
+      {
         id: 'attendancecalculation',
         title: 'Calculation',
         type: 'item',
-        url: '/analytics',
+        url: '/employee/attendance-calculation',
         icon: 'feather icon-home'
       }
     ]
   },
-    {
+  {
     id: 'setting-component',
     title: 'Setting',
     type: 'group',
@@ -82,38 +84,45 @@ export const NavigationItems: NavigationItem[] = [
         icon: 'feather icon-box',
         children: [
           {
-            id: 'user',
-            title: 'User Setup',
+            id: 'branch',
+            title: 'Branch List',
             type: 'item',
-            url: '/component/button'
+            url: '/setting/setup/branch-list'
           },
-           {
+          {
+            id: 'user',
+            title: 'User List',
+            type: 'item',
+            url: '/setting/setup/user-list'
+          },
+          {
             id: 'branch',
             title: 'Branch',
             type: 'item',
             url: '/component/button'
           },
-           {
+          {
             id: 'department',
-            title: 'Department ',
+            title: 'Department List',
             type: 'item',
-            url: '/component/button'
-          },{
+            url: '/setting/setup/department-list'
+          },
+          {
             id: 'designation',
             title: 'Designation',
             type: 'item',
             url: '/component/button'
           },
-           {
+          {
             id: 'shift',
             title: 'Shift',
             type: 'item',
             url: '/component/button'
-          },
+          }
         ]
-        },
+      }
     ]
-    },
+  },
   {
     id: 'ui-component',
     title: 'Ui Component',

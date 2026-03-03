@@ -15,7 +15,8 @@ const routes: Routes = [
         path: '',
         redirectTo: '/analytics',
         pathMatch: 'full'
-      },{
+      },
+      {
         path: 'test',
         loadComponent: () => import('./features/test/test').then((c) => c.Test)
       },
@@ -26,6 +27,28 @@ const routes: Routes = [
       {
         path: 'component',
         loadChildren: () => import('./demo/ui-element/ui-basic.module').then((m) => m.UiBasicModule)
+      },
+      {
+        path: 'setting/setup/user-list',
+        loadComponent: () => import('./features/setting/setup/user-list/user-list.component').then((c) => c.UserListComponent)
+      },
+      {
+        path: 'setting/setup/branch-list',
+        loadComponent: () => import('./features/setting/setup/branch-list/branch-list').then((c) => c.BranchList)
+      },
+      {
+        path: 'setting/setup/department-list',
+        loadComponent: () => import('./features/setting/setup/department-list/department-list').then((c) => c.DepartmentList)
+      },
+      {
+        path: 'employee/fingerprint-upload',
+        loadComponent: () =>
+          import('./features/employee/employee-fingerprint-upload/employee-fingerprint-upload').then((c) => c.EmployeeFingerprintUpload)
+      },
+      {
+        path: 'employee/attendance-calculation',
+        loadComponent: () =>
+          import('./features/employee/attendance-calculation/attendance-calculation').then((c) => c.AttendanceCalculation)
       },
       {
         path: 'chart',
