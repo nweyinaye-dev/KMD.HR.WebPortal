@@ -1,89 +1,100 @@
-<div class="row attendance-page">
+<div class="row">
   <div class="col-sm-12">
     <app-card cardTitle="Attendance Calculation">
-      <!-- Premium Header / Filter Bar -->
-      <div class="attendance-header">
-        <div class="header-filters">
-          <dx-date-range-box
-            [value]="initialValue"
-            displayFormat="MM/dd/yyyy"
-            [showClearButton]="true"
-            class="filter-date-range"
-          ></dx-date-range-box>
+      
+      <!-- Filter Form (Keeping consistent with recent version) -->
+      <div class="calc-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Search</label>
+            <dx-text-box mode="search" placeholder="Search..." class="grid-search-box"></dx-text-box>
+          </div>
 
-          <dx-select-box [items]="statuses" placeholder="Select Status" class="filter-select" [showClearButton]="true"></dx-select-box>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <dx-select-box [items]="statuses" placeholder="Select Status" [showClearButton]="true"></dx-select-box>
+          </div>
 
-          <dx-select-box
-            [items]="sortOptions"
-            placeholder="Sort By : Last 7 Days"
-            class="filter-select"
-            [showClearButton]="true"
-          ></dx-select-box>
+          <div class="form-group">
+            <label class="form-label">Sort By</label>
+            <dx-select-box [items]="sortOptions" placeholder="Last 7 Days" [showClearButton]="true"></dx-select-box>
+          </div>
+
+          <div class="form-actions">
+            <dx-button
+              text="Calculate"
+              type="default"
+              stylingMode="contained"
+              icon="calc"
+              (onClick)="onCalculate()"
+            ></dx-button>
+            <dx-button
+              text="Reset"
+              type="normal"
+              stylingMode="outlined"
+              icon="refresh"
+              (onClick)="onReset()"
+            ></dx-button>
+          </div>
         </div>
       </div>
 
-      <div class="attendance-body">
-        <!-- Grid Controls -->
-        <div class="grid-controls">
-          <div class="pagination-control">
-            <span>Row Per Page</span>
-            <dx-select-box [items]="[10, 25, 50]" [(value)]="pageSize" class="page-size-select"></dx-select-box>
-            <span>Entries</span>
-          </div>
+      <hr class="divider" />
 
-          <div class="search-control">
-            <dx-text-box mode="search" placeholder="Search" class="grid-search-box"></dx-text-box>
+      <!-- Result Grid (Matching user image) -->
+      <dx-data-grid
+        id="attendanceGrid"
+        [dataSource]="resultData"
+        keyExpr="id"
+        [showBorders]="false"
+        [allowColumnResizing]="true"
+        [columnAutoWidth]="true"
+        [rowAlternationEnabled]="false"
+        class="premium-grid"
+      >
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-selection mode="none"></dxo-selection>
+
+        <dxi-column dataField="date" caption="Date" [allowSorting]="true"></dxi-column>
+        <dxi-column dataField="checkIn" caption="Check In" alignment="left"></dxi-column>
+
+        <dxi-column 
+          dataField="status" 
+          caption="Status" 
+          cellTemplate="statusTemplate" 
+          alignment="left"
+        ></dxi-column>
+
+        <dxi-column dataField="checkOut" caption="Check Out" alignment="left"></dxi-column>
+        <dxi-column dataField="break" caption="Break" alignment="left"></dxi-column>
+        <dxi-column dataField="late" caption="Late" alignment="left"></dxi-column>
+        <dxi-column dataField="overtime" caption="Overtime" alignment="left"></dxi-column>
+        
+        <dxi-column 
+          dataField="productionHours" 
+          caption="Production Hours" 
+          cellTemplate="productionTemplate" 
+          alignment="left"
+        ></dxi-column>
+
+        <!-- Status Template (Badge with Dot) -->
+        <div *dxTemplate="let d of 'statusTemplate'">
+          <div class="status-badge-premium" [ngClass]="getStatusClass(d.value)">
+            <span class="dot"></span>
+            {{ d.value }}
           </div>
         </div>
 
-        <!-- Attendance Data Grid -->
-        <dx-data-grid
-          id="attendanceGrid"
-          [dataSource]="resultData"
-          keyExpr="id"
-          [showBorders]="false"
-          [allowColumnResizing]="true"
-          [columnAutoWidth]="true"
-          [rowAlternationEnabled]="false"
-          class="premium-grid"
-        >
-          <dxo-paging [pageSize]="pageSize"></dxo-paging>
-          <dxo-selection mode="none"></dxo-selection>
-
-          <dxi-column dataField="date" caption="Date" [allowSorting]="true"></dxi-column>
-          <dxi-column dataField="checkIn" caption="Check In" alignment="left"></dxi-column>
-
-          <dxi-column dataField="status" caption="Status" cellTemplate="statusTemplate" alignment="left"></dxi-column>
-
-          <dxi-column dataField="checkOut" caption="Check Out" alignment="left"></dxi-column>
-          <dxi-column dataField="break" caption="Break" alignment="left"></dxi-column>
-          <dxi-column dataField="late" caption="Late" alignment="left"></dxi-column>
-          <dxi-column dataField="overtime" caption="Overtime" alignment="left"></dxi-column>
-
-          <dxi-column
-            dataField="productionHours"
-            caption="Production Hours"
-            cellTemplate="productionTemplate"
-            alignment="left"
-          ></dxi-column>
-
-          <!-- Status Template (Badge with Dot) -->
-          <div *dxTemplate="let d of 'statusTemplate'">
-            <div class="status-badge-premium" [ngClass]="getStatusClass(d.value)">
-              <span class="dot"></span>
-              {{ d.value }}
-            </div>
+        <!-- Production Template (Rounded Badge with Icon) -->
+        <div *dxTemplate="let d of 'productionTemplate'">
+          <div class="production-badge" [ngClass]="'bg-' + d.data.productionStatus">
+            <i class="feather icon-clock"></i>
+            {{ d.value }}
           </div>
+        </div>
 
-          <!-- Production Template (Rounded Badge with Icon) -->
-          <div *dxTemplate="let d of 'productionTemplate'">
-            <div class="production-badge" [ngClass]="'bg-' + d.data.productionStatus">
-              <i class="feather icon-clock"></i>
-              {{ d.value }}
-            </div>
-          </div>
-        </dx-data-grid>
-      </div>
+      </dx-data-grid>
+
     </app-card>
   </div>
 </div>
