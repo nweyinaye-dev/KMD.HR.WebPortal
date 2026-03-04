@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Shift Setup List" >
+      <dx-data-grid
+        id="gridContainer"
+        [dataSource]="dataSource"
+        keyExpr="id"
+        [showBorders]="true"
+        [allowColumnResizing]="true"
+        [columnAutoWidth]="true"
+        (onToolbarPreparing)="onToolbarPreparing($event)"
+        class="premium-grid"
+      >
+        <dxo-editing
+          mode="row"
+          [allowUpdating]="true"
+          [allowDeleting]="true"
+          [allowAdding]="true"
+        >
+        </dxo-editing>
+
+        <dxi-column type="buttons" caption="Action" [width]="100">
+          <dxi-button name="edit" icon="edit" hint="Edit"></dxi-button>
+          <dxi-button name="delete" icon="trash" hint="Delete" cssClass="text-danger"></dxi-button>
+        </dxi-column>
+
+        <dxi-column dataField="shiftName" caption="Shift Name">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        
+        <dxi-column dataField="inTime" caption="In Time" dataType="time" editorType="dxDateBox" [editorOptions]="{ type: 'time', displayFormat: 'HH:mm', pickerType: 'list' }">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        
+        <dxi-column dataField="outTime" caption="Out Time" dataType="time" editorType="dxDateBox" [editorOptions]="{ type: 'time', displayFormat: 'HH:mm', pickerType: 'list' }">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        
+        <dxi-column dataField="morningInTime" caption="Morning In" dataType="time" editorType="dxDateBox" [editorOptions]="{ type: 'time', displayFormat: 'HH:mm', pickerType: 'list' }">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        
+        <dxi-column dataField="morningOutTime" caption="Morning Out" dataType="time" editorType="dxDateBox" [editorOptions]="{ type: 'time', displayFormat: 'HH:mm', pickerType: 'list' }">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        
+        <dxi-column dataField="eveningInTime" caption="Evening In" dataType="time" editorType="dxDateBox" [editorOptions]="{ type: 'time', displayFormat: 'HH:mm', pickerType: 'list' }">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        
+        <dxi-column dataField="eveningOutTime" caption="Evening Out" dataType="time" editorType="dxDateBox" [editorOptions]="{ type: 'time', displayFormat: 'HH:mm', pickerType: 'list' }">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager
+          [showPageSizeSelector]="true"
+          [allowedPageSizes]="[10, 25, 50]"
+        ></dxo-pager>
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+      </dx-data-grid>
+    </app-card>
+  </div>
+</div>

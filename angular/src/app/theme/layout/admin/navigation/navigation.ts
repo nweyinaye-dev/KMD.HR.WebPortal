@@ -117,7 +117,7 @@ export const NavigationItems: NavigationItem[] = [
             id: 'shift',
             title: 'Shift',
             type: 'item',
-            url: '/component/button'
+            url: '/setting/setup/shift-list'
           }
         ]
       }

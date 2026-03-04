@@ -41,6 +41,10 @@ const routes: Routes = [
         loadComponent: () => import('./features/setting/setup/department-list/department-list').then((c) => c.DepartmentList)
       },
       {
+        path: 'setting/setup/shift-list',
+        loadComponent: () => import('./features/setting/setup/shift-list/shift-list.component').then((c) => c.ShiftListComponent)
+      },
+      {
         path: 'employee/fingerprint-upload',
         loadComponent: () =>
           import('./features/employee/employee-fingerprint-upload/employee-fingerprint-upload').then((c) => c.EmployeeFingerprintUpload)

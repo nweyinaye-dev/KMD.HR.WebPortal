@@ -1,0 +1,11 @@
+.premium-grid {
+  margin-top: 20px;
+}
+
+::ng-deep .dx-datagrid-header-panel {
+  padding: 10px 0;
+}
+
+::ng-deep .text-danger {
+  color: #ff5252 !important;
+}

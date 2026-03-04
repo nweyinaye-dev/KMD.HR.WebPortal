@@ -5,7 +5,8 @@ import {
   DxButtonModule, 
   DxDataGridModule,
   DxTextBoxModule,
-  DxDateRangeBoxModule
+  DxDateRangeBoxModule,
+  DxDateBoxModule
 } from 'devextreme-angular';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
@@ -18,6 +19,7 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
     DxDataGridModule, 
     DxTextBoxModule,
     DxDateRangeBoxModule,
+    DxDateBoxModule,
     SharedModule
   ],
   templateUrl: './attendance-calculation.html',
@@ -26,15 +28,19 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 export class AttendanceCalculation {
 
   // --- Filter options ---
-  statuses = ['Present', 'Absent', 'Late', 'On Leave'];
-  sortOptions = ['Last 7 Days', 'Last 30 Days', 'Current Month'];
+  
+  departments = ['IT', 'HR', 'Finance', 'Marketing', 'Sales'];
+  employees = ['Aung Aung', 'Kyaw Kyaw', 'Mya Mya', 'Zarni', 'Htet Htet'];
+  
+  fromDate: Date = new Date(2024, 8, 1); // Default to Sept 1, 2024
+  toDate: Date = new Date();
   
   pageSize = 10;
 
-  // --- Result grid data ---
   resultData: any[] = [
     { 
       id: 1, 
+      employee: 'Aung Aung',
       date: '02 Sep 2024', 
       checkIn: '09:12 AM', 
       status: 'Present', 
@@ -47,6 +53,7 @@ export class AttendanceCalculation {
     },
     { 
       id: 2, 
+      employee: 'Kyaw Kyaw',
       date: '06 Jul 2024', 
       checkIn: '09:00 AM', 
       status: 'Present', 
@@ -59,6 +66,7 @@ export class AttendanceCalculation {
     },
     { 
       id: 3, 
+      employee: 'Mya Mya',
       date: '10 Dec 2024', 
       checkIn: '-', 
       status: 'Absent', 
@@ -71,6 +79,7 @@ export class AttendanceCalculation {
     },
     { 
       id: 4, 
+      employee: 'Zarni',
       date: '12 Apr 2024', 
       checkIn: '09:00 AM', 
       status: 'Present', 
@@ -83,6 +92,7 @@ export class AttendanceCalculation {
     },
     { 
       id: 5, 
+      employee: 'Htet Htet',
       date: '14 Jan 2024', 
       checkIn: '09:32 AM', 
       status: 'Present', 
