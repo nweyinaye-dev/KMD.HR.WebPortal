@@ -1,0 +1,180 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Shifts" [hidHeader]="true"  cardClass="shift-card">
+      
+      <dx-data-grid
+        id="gridContainer"
+        [dataSource]="dataSource"
+        keyExpr="id"
+        [showBorders]="false"
+        [allowColumnResizing]="true"
+        [columnAutoWidth]="true"
+        (onToolbarPreparing)="onToolbarPreparing($event)"
+        class="premium-grid"
+      >
+        <dxo-editing
+          mode="row"
+          [allowUpdating]="true"
+          [allowDeleting]="true"
+          [allowAdding]="true"
+        >
+        </dxo-editing>
+
+        <dxi-column type="buttons" caption="" [width]="100" cellTemplate="actionTemplate">
+        </dxi-column>
+
+        <dxi-column dataField="shiftName" caption="Shift Name" [minWidth]="150">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
+        
+        <dxi-column caption="Timing" [minWidth]="200" cellTemplate="timingTemplate">
+        </dxi-column>
+
+        <dxi-column dataField="weekOff" caption="Week off" [minWidth]="150">
+        </dxi-column>
+
+        <dxi-column dataField="createdOn" caption="Created On" dataType="date" format="dd MMM yyyy" [minWidth]="120">
+        </dxi-column>
+
+        <dxi-column dataField="status" caption="Status" [width]="110" cellTemplate="statusTemplate">
+        </dxi-column>
+
+        <!-- Hidden timing columns for editing -->
+        <dxi-column dataField="inTime" [visible]="false"></dxi-column>
+        <dxi-column dataField="outTime" [visible]="false"></dxi-column>
+        <dxi-column dataField="morningInTime" [visible]="false"></dxi-column>
+        <dxi-column dataField="morningOutTime" [visible]="false"></dxi-column>
+        <dxi-column dataField="eveningInTime" [visible]="false"></dxi-column>
+        <dxi-column dataField="eveningOutTime" [visible]="false"></dxi-column>
+
+        <div *dxTemplate="let data of 'timingTemplate'">
+          <div class="timing-cell">
+            {{data.data.inTime}} AM - {{data.data.outTime}} PM
+          </div>
+        </div>
+
+        <div *dxTemplate="let data of 'statusTemplate'">
+          <span class="badge badge-active" *ngIf="data.value === 'Active'">
+            <i class="dot"></i> Active
+          </span>
+          <span class="badge badge-inactive" *ngIf="data.value !== 'Active'">
+            <i class="dot"></i> Inactive
+          </span>
+        </div>
+
+        <div *dxTemplate="let data of 'actionTemplate'">
+          <div class="action-buttons">
+            <button class="btn-icon edit" (click)="grid.instance.editRow(data.rowIndex)" title="Edit">
+              <i class="dx-icon-edit"></i>
+            </button>
+            <button class="btn-icon delete" (click)="grid.instance.deleteRow(data.rowIndex)" title="Delete">
+              <i class="dx-icon-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <div *dxTemplate="let data of 'searchTemplate'">
+          <div class="search-wrapper">
+            <dx-text-box mode="search" placeholder="Search" (onValueChanged)="grid.instance.searchByText($event.value)"></dx-text-box>
+          </div>
+        </div>
+
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager
+          [showPageSizeSelector]="true"
+          [allowedPageSizes]="[10, 25, 50]"
+        ></dxo-pager>
+      </dx-data-grid>
+    </app-card>
+  </div>
+</div>
+
+<dx-popup
+  [(visible)]="isPopupVisible"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [showCloseButton]="true"
+  [showTitle]="false"
+  [width]="650"
+  [height]="'90vh'"
+  [shading]="true"
+  position="center"
+  class="shift-popup"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-tab-panel [focusStateEnabled]="false">
+      <dxi-item title="Shift Info">
+        <div class="tab-content">
+          <div class="form-group mb-3">
+            <label>Shift <span class="required">*</span></label>
+            <dx-text-box [(value)]="currentShift.shiftName" placeholder="Enter Shift Name"></dx-text-box>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-6">
+              <label>From <span class="required">*</span></label>
+              <dx-date-box type="time" displayFormat="HH:mm" [(value)]="currentShift.inTime"></dx-date-box>
+            </div>
+            <div class="col-6">
+              <label>To <span class="required">*</span></label>
+              <dx-date-box type="time" displayFormat="HH:mm" [(value)]="currentShift.outTime"></dx-date-box>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Weekoff <span class="required">*</span></label>
+            <dx-select-box [items]="weekOffOptions" [(value)]="currentShift.weekOff" placeholder="Select"></dx-select-box>
+          </div>
+
+          <div class="weekdays-section">
+            <div class="section-title mb-2">Weekdays Defeniton</div>
+            <div class="weekdays-table">
+              <div class="table-header row g-0">
+                <div class="col-4">Days</div>
+                <div class="col-2 text-center">All</div>
+                <div class="col-1 text-center">1st</div>
+                <div class="col-1 text-center">2nd</div>
+                <div class="col-1 text-center">3rd</div>
+                <div class="col-1 text-center">4th</div>
+                <div class="col-2 text-center">5th</div>
+              </div>
+              <div class="table-body">
+                <div class="day-row row g-0 align-items-center" *ngFor="let day of weekDays">
+                  <div class="col-4 d-flex align-items-center gap-2">
+                    <dx-switch [(value)]="day.enabled" [switchedOnText]="''" [switchedOffText]="''" class="small-switch"></dx-switch>
+                    <span>{{day.name}}</span>
+                  </div>
+                  <div class="col-2 text-center"><dx-check-box [(value)]="day.all"></dx-check-box></div>
+                  <div class="col-1 text-center"><dx-check-box [(value)]="day.w1"></dx-check-box></div>
+                  <div class="col-1 text-center"><dx-check-box [(value)]="day.w2"></dx-check-box></div>
+                  <div class="col-1 text-center"><dx-check-box [(value)]="day.w3"></dx-check-box></div>
+                  <div class="col-1 text-center"><dx-check-box [(value)]="day.w4"></dx-check-box></div>
+                  <div class="col-2 text-center"><dx-check-box [(value)]="day.w5" class="ms-1"></dx-check-box></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-footer mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <dx-check-box text="Recurring Shift" [(value)]="currentShift.recurring"></dx-check-box>
+                <div class="d-flex align-items-center gap-2">
+                    <span>Status</span>
+                    <dx-switch [(value)]="currentShift.status" [switchedOnText]="''" [switchedOffText]="''" class="status-switch"></dx-switch>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+              <dx-button text="Cancel" stylinfMode="outlined" (onClick)="handleCancel()" class="btn-cancel"></dx-button>
+              <dx-button text="Save" type="default" stylingMode="contained" (onClick)="handleSave()" class="btn-save"></dx-button>
+            </div>
+          </div>
+        </div>
+      </dxi-item>
+      <dxi-item title="Break Timings">
+        <div class="tab-content">
+          <p class="text-muted">Break timing settings go here.</p>
+        </div>
+      </dxi-item>
+    </dx-tab-panel>
+  </div>
+</dx-popup>

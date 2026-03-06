@@ -1,0 +1,27 @@
+<dx-data-grid
+  [dataSource]="dataSource"
+  [keyExpr]="keyExpr"
+  [showBorders]="showBorders"
+  [allowColumnResizing]="allowColumnResizing"
+  [columnAutoWidth]="columnAutoWidth"
+  [rowAlternationEnabled]="rowAlternationEnabled"
+  [class]="className"
+>
+  <dxo-paging [pageSize]="pageSize"></dxo-paging>
+  <dxo-selection [mode]="selectionMode"></dxo-selection>
+
+  <dxi-column
+    *ngFor="let col of columns"
+    [dataField]="col.dataField"
+    [caption]="col.caption"
+    [alignment]="col.alignment || 'left'"
+    [allowSorting]="col.allowSorting !== false"
+    [cellTemplate]="col.cellTemplate"
+    [width]="col.width"
+    [dataType]="col.dataType"
+    [format]="col.format"
+  ></dxi-column>
+
+  <!-- Pass through templates and other columns from parent -->
+  <ng-content></ng-content>
+</dx-data-grid>

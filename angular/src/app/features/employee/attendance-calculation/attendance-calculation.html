@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Attendance Calculation">
+      
+      <!-- Filter Form (Keeping consistent with recent version) -->
+      <div class="calc-form">
+        <div class="form-row">
+         
+          <div class="form-group">
+            <label class="form-label">From Date</label>
+            <dx-date-box [(value)]="fromDate" type="date" displayFormat="dd MMM yyyy" placeholder="Select Date"></dx-date-box>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">To Date</label>
+            <dx-date-box [(value)]="toDate" type="date" displayFormat="dd MMM yyyy" placeholder="Select Date"></dx-date-box>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Department</label>
+            <dx-select-box [items]="departments" placeholder="Select Department" [showClearButton]="true"></dx-select-box>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Employee</label>
+            <dx-select-box [items]="employees" placeholder="Select Employee" [showClearButton]="true" [searchEnabled]="true"></dx-select-box>
+          </div>
+          <div class="form-group">
+             <div class="form-actions">
+            <dx-button
+              text="Calculate"
+              type="default"
+              stylingMode="contained"
+              icon="check"
+              (onClick)="onCalculate()"
+            ></dx-button>
+            <dx-button
+              text="Reset"
+              type="normal"
+              stylingMode="outlined"
+              icon="refresh"
+              (onClick)="onReset()"
+            ></dx-button>
+          </div>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Result Grid (Using common component) -->
+      <dx-data-grid
+        [dataSource]="resultData"
+        [showBorders]="false"
+        [columnAutoWidth]="true"
+        class="premium-grid"
+      >
+        <dxo-paging [pageSize]="pageSize"></dxo-paging>
+        
+        <dxi-column dataField="employee" caption="Employee" [allowSorting]="true"></dxi-column>
+        <dxi-column dataField="date" caption="Date" [allowSorting]="true"></dxi-column>
+        <dxi-column dataField="checkIn" caption="Check In"></dxi-column>
+        <dxi-column dataField="status" caption="Status" cellTemplate="statusTemplate"></dxi-column>
+        <dxi-column dataField="checkOut" caption="Check Out"></dxi-column>
+        <dxi-column dataField="break" caption="Break"></dxi-column>
+        <dxi-column dataField="late" caption="Late"></dxi-column>
+        <dxi-column dataField="overtime" caption="Overtime"></dxi-column>
+        <dxi-column dataField="productionHours" caption="Production Hours" cellTemplate="productionTemplate"></dxi-column>
+
+        <!-- Status Template (Badge with Dot) -->
+        <div *dxTemplate="let d of 'statusTemplate'">
+          <div class="status-badge-premium" [ngClass]="getStatusClass(d.value)">
+            <span class="dot"></span>
+            {{ d.value }}
+          </div>
+        </div>
+
+        <!-- Production Template (Rounded Badge with Icon) -->
+        <div *dxTemplate="let d of 'productionTemplate'">
+          <div class="production-badge" [ngClass]="'bg-' + d.data.productionStatus">
+            <i class="feather icon-clock"></i>
+            {{ d.value }}
+          </div>
+        </div>
+      </dx-data-grid>
+
+    </app-card>
+  </div>
+</div>
