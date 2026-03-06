@@ -35,7 +35,6 @@ import {
 })
 export class ShiftListComponent {
   @ViewChild(DxDataGridComponent, { static: false }) grid!: DxDataGridComponent;
-  hideHeader: boolean = false;
   isPopupVisible = false;
   currentShift: any = {};
 
@@ -94,57 +93,22 @@ export class ShiftListComponent {
   ];
 
   onToolbarPreparing(e: any) {
-    const toolbarItems = e.toolbarOptions.items;
+    // Toolbar items are now handled in the accordion
+    e.toolbarOptions.items = e.toolbarOptions.items.filter((item: any) => 
+      item.name !== 'addRowButton' && 
+      item.name !== 'exportButton' &&
+      item.name !== 'searchPanel'
+    );
+  }
 
-    // Add Search Panel to the left
-    toolbarItems.unshift({
-      location: 'before',
-      template: 'searchTemplate'
-    });
+  exportPDF() {
+    // Implement PDF export logic
+    console.log('Exporting to PDF...');
+  }
 
-    // Add Export buttons to the right
-    toolbarItems.push({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        icon: 'exportpdf',
-        hint: 'Export to PDF',
-        onClick: () => { /* Implement PDF export */ }
-      }
-    });
-
-    toolbarItems.push({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        icon: 'exportxlsx',
-        hint: 'Export to Excel',
-        onClick: () => { /* Implement Excel export */ }
-      }
-    });
-
-    toolbarItems.push({
-      location: 'after',
-      widget: 'dxButton',
-      options: {
-        icon: 'refresh',
-        hint: 'Refresh',
-        onClick: () => this.grid.instance.refresh()
-      }
-    });
-
-    // Customize Add Button
-    const addRowItem = toolbarItems.find((item: any) => item.name === 'addRowButton');
-    if (addRowItem) {
-      addRowItem.location = 'after';
-      addRowItem.showText = 'always';
-      addRowItem.options.text = 'Add Shift';
-      addRowItem.options.icon = 'plus';
-      addRowItem.options.type = 'button';
-      addRowItem.options.stylingMode = 'contained';
-      addRowItem.options.elementAttr = { class: 'primary' };
-      addRowItem.options.onClick = () => this.onAddShift(); // Call custom method
-    }
+  exportExcel() {
+    // Implement Excel export logic
+    console.log('Exporting to Excel...');
   }
 
   onAddShift() {

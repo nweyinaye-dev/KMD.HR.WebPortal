@@ -63,14 +63,16 @@ export class UserListComponent {
   }
 
   onToolbarPreparing(e: any) {
-    const toolbarItems = e.toolbarOptions.items;
-    const addRowItem = toolbarItems.find((item: any) => item.name === 'addRowButton');
-    if (addRowItem) {
-      addRowItem.showText = 'always';
-      addRowItem.options.text = 'New';
-      addRowItem.options.icon = 'plus';
-      addRowItem.options.type = 'default';
-      addRowItem.options.stylingMode = 'contained';
-    }
+    // Toolbar items are now handled in the accordion
+    e.toolbarOptions.items = e.toolbarOptions.items.filter((item: any) => 
+      item.name !== 'addRowButton' && 
+      item.name !== 'exportButton' &&
+      item.name !== 'searchPanel'
+    );
+  }
+
+  exportExcel() {
+    // Implement Excel export logic
+    console.log('Exporting user list to Excel...');
   }
 }

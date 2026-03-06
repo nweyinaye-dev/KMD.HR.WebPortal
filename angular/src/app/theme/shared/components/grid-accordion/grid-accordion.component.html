@@ -1,0 +1,51 @@
+<div ngbAccordion>
+  <div ngbAccordionItem [collapsed]="collapsed">
+    <h2 ngbAccordionHeader>
+      <button ngbAccordionButton>{{ title }}</button>
+    </h2>
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <ng-template>
+          <div class="grid-controls-wrapper">
+            <div class="left-controls">
+              <div class="search-wrapper" *ngIf="showSearch">
+                <dx-text-box mode="search" [placeholder]="searchPlaceholder" [width]="250"
+                  (onValueChanged)="onSearch.emit($event.value)"></dx-text-box>
+              </div>
+
+              <div class="dynamic-filters" *ngIf="filters && filters.length > 0">
+                <div class="filter-item" *ngFor="let filter of filters">
+                  <label *ngIf="filter.label">{{ filter.label }}</label>
+                  <dx-select-box *ngIf="filter.type === 'select'"
+                    [items]="filter.items || []"
+                    [value]="filter.value"
+                    [placeholder]="filter.placeholder || 'Select...'"
+                    [width]="filter.width || 150"
+                    (onValueChanged)="handleFilterChange(filter, $event)">
+                  </dx-select-box>
+                  <dx-date-box *ngIf="filter.type === 'date'"
+                    [value]="filter.value"
+                    [placeholder]="filter.placeholder || 'Select Date'"
+                    [width]="filter.width || 150"
+                    (onValueChanged)="handleFilterChange(filter, $event)">
+                  </dx-date-box>
+                </div>
+              </div>
+
+              <ng-content select="[left-filters]"></ng-content>
+            </div>
+            <div class="right-controls">
+              <div class="button-group">
+                <ng-content select="[right-actions]"></ng-content>
+                <dx-button *ngIf="showNew" icon="plus" [text]="newButtonText" type="default" stylingMode="contained" class="ms-2 primary" (onClick)="onNew.emit()"></dx-button>
+                <!-- <dx-button *ngIf="showExportPDF" icon="exportpdf" [hint]="'Export to PDF'" stylingMode="outlined" (onClick)="onExportPDF.emit()"></dx-button> -->
+                <dx-button *ngIf="showExportExcel" icon="exportxlsx" [hint]="'Export to Excel'" stylingMode="outlined" (onClick)="onExportExcel.emit()"></dx-button>                
+                <dx-button *ngIf="showRefresh" icon="refresh" [hint]="'Refresh'" stylingMode="outlined" (onClick)="onRefresh.emit()"></dx-button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

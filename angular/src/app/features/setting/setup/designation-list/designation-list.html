@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Designation List" [hidHeader]="true">
+      <app-grid-accordion 
+        title="Actions & Filters" 
+        [newButtonText]="'New Designation'"
+        (onSearch)="grid.instance.searchByText($event)"
+        (onNew)="showAddPopup()"
+        (onExportExcel)="exportExcel()"
+        (onRefresh)="grid.instance.refresh()">
+      </app-grid-accordion>
+      <br>
+      <dx-data-grid 
+        id="gridContainer" 
+        [dataSource]="dataSource" 
+        keyExpr="id" 
+        [showBorders]="false"
+        [allowColumnResizing]="true" 
+        [columnAutoWidth]="true" 
+        (onToolbarPreparing)="onToolbarPreparing($event)" 
+        class="premium-grid"
+      >
+        <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true"></dxo-editing>
+
+        <dxi-column dataField="designation" caption="Designation"></dxi-column>
+        <dxi-column dataField="department" caption="Departments"></dxi-column>
+        <dxi-column dataField="members" caption="Members" cellTemplate="membersTemplate" [width]="120"></dxi-column>
+        <dxi-column dataField="createdOn" caption="Created On" [width]="140"></dxi-column>
+        <dxi-column dataField="totalMembers" caption="Total Members" [width]="130" alignment="center"></dxi-column>
+        <dxi-column dataField="status" caption="Status" cellTemplate="statusTemplate" [width]="120" alignment="center"></dxi-column>
+        
+        <dxi-column type="buttons" caption="Action" [width]="100">
+          <dxi-button name="edit" icon="edit" hint="Edit"></dxi-button>
+          <dxi-button name="delete" icon="trash" hint="Delete" cssClass="btn-delete-red"></dxi-button>
+        </dxi-column>
+
+        <!-- Members Template -->
+        <div *dxTemplate="let d of 'membersTemplate'">
+          <div class="avatar-group" *ngIf="d.value > 0">
+            <div class="avatar-item" style="background-image: url('assets/images/user/avatar-1.jpg')"></div>
+            <div class="avatar-item" style="background-image: url('assets/images/user/avatar-2.jpg')"></div>
+            <div class="avatar-item" style="background-image: url('assets/images/user/avatar-3.jpg')"></div>
+            <div class="avatar-more" *ngIf="d.value > 3">+{{ d.value - 3 }}</div>
+          </div>
+          <span *ngIf="d.value === 0">-</span>
+        </div>
+
+        <!-- Status Template -->
+        <div *dxTemplate="let d of 'statusTemplate'">
+          <span class="status-badge" [ngClass]="d.value.toLowerCase()">
+            <span class="dot"></span>
+            {{ d.value }}
+          </span>
+        </div>
+
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50]"></dxo-pager>
+      </dx-data-grid>
+    </app-card>
+  </div>
+</div>
+
+<dx-popup [(visible)]="isPopupVisible" [dragEnabled]="false" [hideOnOutsideClick]="false" [showCloseButton]="true"
+  [showTitle]="false" [width]="450" [height]="'40vh'" [shading]="true" position="center" class="shift-popup">
+  <div *dxTemplate="let data of 'content'">
+      
+        <div class="tab-content">
+          <div class="form-group mb-3">
+            <label>Designation <span class="required">*</span></label>
+            <dx-text-box [(value)]="currentShift.shiftName" placeholder="Enter Designation Name"></dx-text-box>
+          </div>
+
+
+
+          <div class="form-group mb-3">
+            <label>Department <span class="required">*</span></label>
+            <dx-select-box [items]="departments" [(value)]="currentShift.weekOff"
+              placeholder="Select"></dx-select-box>
+          </div>
+
+
+          <div class="form-footer mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <!-- <dx-check-box text="Recurring Shift" [(value)]="currentShift.recurring"></dx-check-box> -->
+              <div class="d-flex align-items-center gap-2">
+                <span>Status</span>
+                <dx-switch [(value)]="currentShift.status" [switchedOnText]="''" [switchedOffText]="''"
+                  class="status-switch"></dx-switch>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+              <dx-button text="Cancel" stylinfMode="outlined" (onClick)="handleCancel()" class="btn-cancel"></dx-button>
+              <dx-button text="Save" type="default" stylingMode="contained" (onClick)="handleSave()"
+                class="btn-save"></dx-button>
+            </div>
+          </div>
+        </div>
+  </div>
+</dx-popup>

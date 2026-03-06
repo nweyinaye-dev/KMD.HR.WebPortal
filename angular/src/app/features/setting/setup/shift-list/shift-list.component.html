@@ -1,14 +1,26 @@
 <div class="row">
   <div class="col-sm-12">
     <app-card cardTitle="Shifts" [hidHeader]="true">
+
+      <app-grid-accordion 
+        title="Actions & Filters" 
+        [newButtonText]="'Add Shift'"
+        (onSearch)="grid.instance.searchByText($event)"
+        (onNew)="onAddShift()"
+        (onExportExcel)="exportExcel()"
+        (onExportPDF)="exportPDF()"
+        (onRefresh)="grid.instance.refresh()">
+      </app-grid-accordion>
+
       <dx-data-grid id="gridContainer" [dataSource]="dataSource" keyExpr="id" [showBorders]="false"
         [allowColumnResizing]="true" [columnAutoWidth]="true" (onToolbarPreparing)="onToolbarPreparing($event)"
         class="premium-grid">
-        <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
-        </dxo-editing>
+      <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true"></dxo-editing>
 
-        <dxi-column type="buttons" caption="" [width]="100" cellTemplate="actionTemplate">
-        </dxi-column>
+      <dxi-column type="buttons" caption="Action" [width]="100">
+        <dxi-button name="edit" icon="edit" hint="Edit"></dxi-button>
+        <dxi-button name="delete" icon="trash" hint="Delete" cssClass="btn-delete-red"></dxi-button>
+      </dxi-column>
 
         <dxi-column dataField="shiftName" caption="Shift Name" [minWidth]="150">
           <dxi-validation-rule type="required"></dxi-validation-rule>
@@ -47,24 +59,6 @@
           <span class="badge badge-inactive" *ngIf="data.value !== 'Active'">
             <i class="dot"></i> Inactive
           </span>
-        </div>
-
-        <div *dxTemplate="let data of 'actionTemplate'">
-          <div class="action-buttons">
-            <button class="btn-icon edit" (click)="grid.instance.editRow(data.rowIndex)" title="Edit">
-              <i class="dx-icon-edit"></i>
-            </button>
-            <button class="btn-icon delete" (click)="grid.instance.deleteRow(data.rowIndex)" title="Delete">
-              <i class="dx-icon-trash"></i>
-            </button>
-          </div>
-        </div>
-
-        <div *dxTemplate="let data of 'searchTemplate'">
-          <div class="search-wrapper">
-            <dx-text-box mode="search" placeholder="Search"
-              (onValueChanged)="grid.instance.searchByText($event.value)"></dx-text-box>
-          </div>
         </div>
 
         <dxo-paging [pageSize]="10"></dxo-paging>

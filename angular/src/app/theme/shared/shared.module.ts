@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { CardComponent } from './components/card/card.component';
 import { CommonGridComponent } from './components/common-grid/common-grid';
+import { GridAccordionComponent } from './components/grid-accordion/grid-accordion.component';
 
 // third party
 import { NgScrollbarModule } from 'ngx-scrollbar';
@@ -26,6 +27,7 @@ import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
     CardComponent,
     BreadcrumbComponent,
     CommonGridComponent,
+    GridAccordionComponent,
     NgbDropdownModule,
     NgbNavModule,
     NgbModule,
@@ -40,6 +42,7 @@ import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
     CardComponent,
     BreadcrumbComponent,
     CommonGridComponent,
+    GridAccordionComponent,
     NgbModule,
     NgbDropdownModule,
     NgbNavModule,

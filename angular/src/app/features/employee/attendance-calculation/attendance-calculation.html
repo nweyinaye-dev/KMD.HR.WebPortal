@@ -1,56 +1,39 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card cardTitle="Attendance Calculation">
+    <app-card cardTitle="Attendance Calculation" [hidHeader]="true">
       
-      <!-- Filter Form (Keeping consistent with recent version) -->
-      <div class="calc-form">
-        <div class="form-row">
-         
-          <div class="form-group">
-            <label class="form-label">From Date</label>
-            <dx-date-box [(value)]="fromDate" type="date" displayFormat="dd MMM yyyy" placeholder="Select Date"></dx-date-box>
-          </div>
+      <app-grid-accordion 
+        title="Attendance Filters" 
+        [showSearch]="true"
+        [showNew]="false"
+        [filters]="filterConfig"
+        (onSearch)="grid.instance.searchByText($event)"
+        (onFilterChange)="handleFilterChange($event)"
+        (onRefresh)="grid.instance.refresh()"
+           (onExportExcel)="exportExcel()">
 
-          <div class="form-group">
-            <label class="form-label">To Date</label>
-            <dx-date-box [(value)]="toDate" type="date" displayFormat="dd MMM yyyy" placeholder="Select Date"></dx-date-box>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Department</label>
-            <dx-select-box [items]="departments" placeholder="Select Department" [showClearButton]="true"></dx-select-box>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Employee</label>
-            <dx-select-box [items]="employees" placeholder="Select Employee" [showClearButton]="true" [searchEnabled]="true"></dx-select-box>
-          </div>
-          <div class="form-group">
-             <div class="form-actions">
-            <dx-button
-              text="Calculate"
-              type="default"
-              stylingMode="contained"
-              icon="check"
-              (onClick)="onCalculate()"
-            ></dx-button>
-            <dx-button
-              text="Reset"
-              type="normal"
-              stylingMode="outlined"
-              icon="refresh"
-              (onClick)="onReset()"
-            ></dx-button>
-          </div>
-          </div>
-
+        <div right-actions class="d-flex gap-2">
+          <dx-button
+            text="Calculate"
+            type="default"
+            stylingMode="contained"
+            icon="check"
+            class="primary"
+            (onClick)="onCalculate()"
+          ></dx-button>
+          <dx-button
+            text="Reset"
+            type="normal"
+            stylingMode="outlined"
+            icon="refresh"
+            (onClick)="onReset()"
+          ></dx-button>
         </div>
-      </div>
-
-      <hr class="divider" />
-
+      </app-grid-accordion>
+      <br>
       <!-- Result Grid (Using common component) -->
       <dx-data-grid
+        #grid
         [dataSource]="resultData"
         [showBorders]="false"
         [columnAutoWidth]="true"

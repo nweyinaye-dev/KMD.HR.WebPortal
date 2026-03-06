@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { DxDataGridModule } from 'devextreme-angular';
+import { Component, ViewChild } from '@angular/core';
+import { DxDataGridModule, DxDataGridComponent } from 'devextreme-angular';
+import { SharedModule } from '../../../../theme/shared/shared.module';
 
 @Component({
   selector: 'app-department-list',
-  imports: [DxDataGridModule],
+  standalone: true,
+  imports: [DxDataGridModule, SharedModule],
   templateUrl: './department-list.html',
   styleUrl: './department-list.scss'
 })
 export class DepartmentList {
+  @ViewChild(DxDataGridComponent, { static: false }) grid!: DxDataGridComponent;
   dataSource = [
     { id: 1, deptCode: 'D001', deptName: 'Human Resources', deptShort: 'HR' },
     { id: 2, deptCode: 'D002', deptName: 'Finance', deptShort: 'FIN' },
@@ -25,14 +28,16 @@ export class DepartmentList {
   }
 
   onToolbarPreparing(e: any) {
-    const toolbarItems = e.toolbarOptions.items;
-    const addRowItem = toolbarItems.find((item: any) => item.name === 'addRowButton');
-    if (addRowItem) {
-      addRowItem.showText = 'always';
-      addRowItem.options.text = 'New';
-      addRowItem.options.icon = 'plus';
-      addRowItem.options.type = 'default';
-      addRowItem.options.stylingMode = 'contained';
-    }
+    // Toolbar items are now handled in the accordion
+    e.toolbarOptions.items = e.toolbarOptions.items.filter((item: any) => 
+      item.name !== 'addRowButton' && 
+      item.name !== 'exportButton' &&
+      item.name !== 'searchPanel'
+    );
+  }
+
+  exportExcel() {
+    // Implement Excel export logic
+    console.log('Exporting departments to Excel...');
   }
 }

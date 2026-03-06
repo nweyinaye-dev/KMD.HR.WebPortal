@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { DxDataGridModule } from 'devextreme-angular';
+import { Component, ViewChild } from '@angular/core';
+import { DxDataGridModule, DxDataGridComponent } from 'devextreme-angular';
+import { SharedModule } from '../../../../theme/shared/shared.module';
 
 @Component({
   selector: 'app-branch-list',
-  imports: [DxDataGridModule],
+  standalone: true,
+  imports: [DxDataGridModule, SharedModule],
   templateUrl: './branch-list.html',
   styleUrl: './branch-list.scss'
 })
 export class BranchList {
+  @ViewChild(DxDataGridComponent, { static: false }) grid!: DxDataGridComponent;
   dataSource = [
     { id: 1, branchCode: 'BR001', branchName: 'Head Office', address: '123 Main Street', branchType: 'Head Office' },
     { id: 2, branchCode: 'BR002', branchName: 'Branch A', address: '456 Oak Avenue', branchType: 'Regional' },
@@ -26,14 +29,16 @@ export class BranchList {
   }
 
   onToolbarPreparing(e: any) {
-    const toolbarItems = e.toolbarOptions.items;
-    const addRowItem = toolbarItems.find((item: any) => item.name === 'addRowButton');
-    if (addRowItem) {
-      addRowItem.showText = 'always';
-      addRowItem.options.text = 'New';
-      addRowItem.options.icon = 'plus';
-      addRowItem.options.type = 'default';
-      addRowItem.options.stylingMode = 'contained';
-    }
+    // Toolbar items are now handled in the accordion
+    e.toolbarOptions.items = e.toolbarOptions.items.filter((item: any) => 
+      item.name !== 'addRowButton' && 
+      item.name !== 'exportButton' &&
+      item.name !== 'searchPanel'
+    );
+  }
+
+  exportExcel() {
+    // Implement Excel export logic
+    console.log('Exporting branches to Excel...');
   }
 }

@@ -1,17 +1,4 @@
-.card-header {
-  border-bottom: 1px solid #e9ecef;
-  padding: 1rem 1.25rem;
 
-  .card-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #333;
-  }
-}
-
-.card-body {
-  padding: 1.25rem;
-}
 
 ::ng-deep dx-file-uploader {
   display: none; // Hide the default uploader UI — we use our custom drop zone

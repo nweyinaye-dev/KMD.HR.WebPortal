@@ -30,7 +30,7 @@ export const NavigationItems: NavigationItem[] = [
         title: 'Dashboard',
         type: 'item',
         url: '/analytics',
-        icon: 'feather icon-home'
+        icon: 'feather icon-pie-chart'
       }
     ]
   },
@@ -45,7 +45,7 @@ export const NavigationItems: NavigationItem[] = [
         title: 'Employee Info',
         type: 'item',
         url: '/analytics',
-        icon: 'feather icon-home'
+        icon: 'feather icon-users'
       }
     ]
   },
@@ -94,28 +94,16 @@ export const NavigationItems: NavigationItem[] = [
             title: 'User List',
             type: 'item',
             url: '/setting/setup/user-list'
-          },
-          {
-            id: 'branch',
-            title: 'Branch',
-            type: 'item',
-            url: '/component/button'
-          },
-          {
-            id: 'department',
-            title: 'Department List',
-            type: 'item',
-            url: '/component/button'
-          }, {
+          },{
             id: 'department-list',
             title: 'Department List',
             type: 'item',
-            url: '/setting/department-list'
+            url: '/setting/setup/department-list'
           }, {
             id: 'designation',
             title: 'Designation',
             type: 'item',
-            url: '/component/button'
+            url: '/setting/setup/designation-list'
           },
           {
             id: 'shift',

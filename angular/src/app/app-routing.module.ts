@@ -21,10 +21,6 @@ const routes: Routes = [
         loadComponent: () => import('./features/user-setup-form/user-setup-form').then((c) => c.UserSetupForm)
       },
       {
-        path: 'setting/department-list',
-        loadComponent: () => import('./features/department-list/department-list').then((c) => c.DepartmentList)
-      },
-      {
         path: 'analytics',
         loadComponent: () => import('./demo/dashboard/dash-analytics.component').then((c) => c.DashAnalyticsComponent)
       },
@@ -47,6 +43,10 @@ const routes: Routes = [
       {
         path: 'setting/setup/shift-list',
         loadComponent: () => import('./features/setting/setup/shift-list/shift-list.component').then((c) => c.ShiftListComponent)
+      },
+      {
+        path: 'setting/setup/designation-list',
+        loadComponent: () => import('./features/setting/setup/designation-list/designation-list').then((c) => c.DesignationList)
       },
       {
         path: 'employee/fingerprint-upload',

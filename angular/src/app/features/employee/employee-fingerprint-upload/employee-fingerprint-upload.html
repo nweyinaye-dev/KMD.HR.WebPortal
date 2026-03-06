@@ -1,16 +1,16 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card cardTitle="Attendance Upload">
+    <app-card cardTitle="Attendance Upload"  [hidHeader]="true">
       <div class="">
         <dx-file-uploader
           [multiple]="true"
           uploadMode="useButtons"
           [showFileList]="true"
           accept="*"
-          labelText="or click here"
           selectButtonText="Select Files"
           (onValueChanged)="onFilesSelected($event)"
           [dropZone]="'#dropZoneArea'"
+          class="primary"
         ></dx-file-uploader>
 
         <div id="dropZoneArea" class="upload-drop-zone">

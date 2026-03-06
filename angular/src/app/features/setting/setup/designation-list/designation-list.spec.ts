@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BranchList } from './branch-list';
-import { describe, beforeEach, it } from 'node:test';
+import { DesignationList } from './designation-list';
 
-describe('BranchList', () => {
-  let component: BranchList;
-  let fixture: ComponentFixture<BranchList>;
+describe('DesignationList', () => {
+  let component: DesignationList;
+  let fixture: ComponentFixture<DesignationList>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BranchList]
+      imports: [DesignationList]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BranchList);
+    fixture = TestBed.createComponent(DesignationList);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
