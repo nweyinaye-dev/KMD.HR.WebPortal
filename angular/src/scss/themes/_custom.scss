@@ -21,6 +21,7 @@
 }
 
 .table {
+
   td,
   th {
     font-family: $theme-font-family;
@@ -33,7 +34,7 @@
   }
 }
 
-.h-list-body .chat-messages .chat-menu-reply > div p,
+.h-list-body .chat-messages .chat-menu-reply>div p,
 .pcoded-header.header-blue a.h-back-user-list {
   color: $theme-font-color;
 }
@@ -43,12 +44,13 @@
 }
 
 .pcoded-navbar.menu-light {
-  .pcoded-inner-navbar > app-nav-group > app-nav-collapse > li.active > a,
-  .pcoded-inner-navbar > app-nav-group > app-nav-collapse > li.pcoded-trigger > a,
-  .pcoded-inner-navbar > app-nav-group > app-nav-collapse > li:hover > a,
-  .pcoded-inner-navbar > app-nav-group > app-nav-item > li.active > a,
-  .pcoded-inner-navbar > app-nav-group > app-nav-item > li.pcoded-trigger > a,
-  .pcoded-inner-navbar > app-nav-group > app-nav-item > li:hover > a {
+
+  .pcoded-inner-navbar>app-nav-group>app-nav-collapse>li.active>a,
+  .pcoded-inner-navbar>app-nav-group>app-nav-collapse>li.pcoded-trigger>a,
+  .pcoded-inner-navbar>app-nav-group>app-nav-collapse>li:hover>a,
+  .pcoded-inner-navbar>app-nav-group>app-nav-item>li.active>a,
+  .pcoded-inner-navbar>app-nav-group>app-nav-item>li.pcoded-trigger>a,
+  .pcoded-inner-navbar>app-nav-group>app-nav-item>li:hover>a {
     background: rgba(202, 202, 202, 0.3);
 
     &:before {
@@ -94,4 +96,51 @@
 
 #customerChart .apexcharts-tooltip .apexcharts-tooltip-series-group.active {
   background: #ffffff !important;
+}
+
+.premium-grid {
+  ::ng-deep {
+    .dx-datagrid-header-panel {
+      padding: 0 0 1rem 0;
+      background: transparent;
+
+      .dx-toolbar {
+        background: transparent;
+      }
+    }
+
+    .dx-datagrid-headers {
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+      color: #495057;
+      font-weight: 600;
+      text-transform: none;
+
+      .dx-datagrid-text-content {
+        color: #495057;
+        font-weight: 600;
+      }
+    }
+
+    .dx-data-row {
+      height: 60px;
+
+      &.dx-row-alt {
+        background-color: transparent;
+      }
+
+      &:hover {
+        background-color: #f8f9fa !important;
+      }
+
+      td {
+        vertical-align: middle !important;
+        border-bottom: 1px solid #f1f3f5;
+      }
+    }
+
+    .dx-datagrid-content .dx-datagrid-table .dx-row>td {
+      padding: 12px 15px;
+    }
+  }
 }

@@ -17,16 +17,12 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'test',
-        loadComponent: () => import('./features/test/test').then((c) => c.Test)
-      },
-      {
         path: 'setting/user-setup',
         loadComponent: () => import('./features/user-setup-form/user-setup-form').then((c) => c.UserSetupForm)
       },
-            {
+      {
         path: 'setting/department-list',
-        loadComponent: () => import('./features/department-list/department-list').then((c) => c.DepartmentList) 
+        loadComponent: () => import('./features/department-list/department-list').then((c) => c.DepartmentList)
       },
       {
         path: 'analytics',
@@ -100,4 +96,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,17 +1,8 @@
 <div class="row">
   <div class="col-sm-12">
-    <dx-data-grid
-      id="gridContainer"
-      [dataSource]="dataSource"
-      keyExpr="id"
-      [showBorders]="true"
-      [allowColumnResizing]="true"
-      [columnAutoWidth]="true"
-      (onEditingStart)="onEditingStart($event)"
-      (onInitNewRow)="onInitNewRow($event)"
-      (onToolbarPreparing)="onToolbarPreparing($event)"
-      class="premium-grid"
-    >
+    <dx-data-grid id="gridContainer" [dataSource]="dataSource" keyExpr="id" [showBorders]="true"
+      [allowColumnResizing]="true" [columnAutoWidth]="true" (onEditingStart)="onEditingStart($event)"
+      (onInitNewRow)="onInitNewRow($event)" (onToolbarPreparing)="onToolbarPreparing($event)" class="premium-grid">
       <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true"></dxo-editing>
 
       <dxi-column type="buttons" caption="Action" [width]="100">

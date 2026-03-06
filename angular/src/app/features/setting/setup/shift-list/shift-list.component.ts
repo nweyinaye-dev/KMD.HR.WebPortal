@@ -1,33 +1,33 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../../theme/shared/shared.module';
-import { 
-  DxDataGridComponent, 
-  DxDataGridModule, 
-  DxDateBoxModule, 
-  DxTextBoxModule, 
-  DxPopupModule, 
-  DxTabPanelModule, 
-  DxCheckBoxModule, 
-  DxSelectBoxModule, 
-  DxSwitchModule, 
-  DxButtonModule 
+import {
+  DxDataGridComponent,
+  DxDataGridModule,
+  DxDateBoxModule,
+  DxTextBoxModule,
+  DxPopupModule,
+  DxTabPanelModule,
+  DxCheckBoxModule,
+  DxSelectBoxModule,
+  DxSwitchModule,
+  DxButtonModule
 } from 'devextreme-angular';
 
 @Component({
   selector: 'app-shift-list',
   standalone: true,
   imports: [
-    CommonModule, 
-    SharedModule, 
-    DxDataGridModule, 
-    DxDateBoxModule, 
-    DxTextBoxModule, 
-    DxPopupModule, 
-    DxTabPanelModule, 
-    DxCheckBoxModule, 
-    DxSelectBoxModule, 
-    DxSwitchModule, 
+    CommonModule,
+    SharedModule,
+    DxDataGridModule,
+    DxDateBoxModule,
+    DxTextBoxModule,
+    DxPopupModule,
+    DxTabPanelModule,
+    DxCheckBoxModule,
+    DxSelectBoxModule,
+    DxSwitchModule,
     DxButtonModule
   ],
   templateUrl: './shift-list.component.html',
@@ -35,10 +35,10 @@ import {
 })
 export class ShiftListComponent {
   @ViewChild(DxDataGridComponent, { static: false }) grid!: DxDataGridComponent;
-   hideHeader : boolean = false;
+  hideHeader: boolean = false;
   isPopupVisible = false;
   currentShift: any = {};
-  
+
   weekDays = [
     { name: 'Monday', enabled: true, all: false, w1: false, w2: false, w3: false, w4: false, w5: false },
     { name: 'Tuesday', enabled: false, all: false, w1: false, w2: false, w3: false, w4: false, w5: false },
@@ -95,7 +95,7 @@ export class ShiftListComponent {
 
   onToolbarPreparing(e: any) {
     const toolbarItems = e.toolbarOptions.items;
-    
+
     // Add Search Panel to the left
     toolbarItems.unshift({
       location: 'before',
@@ -140,9 +140,9 @@ export class ShiftListComponent {
       addRowItem.showText = 'always';
       addRowItem.options.text = 'Add Shift';
       addRowItem.options.icon = 'plus';
-      addRowItem.options.type = 'default';
+      addRowItem.options.type = 'button';
       addRowItem.options.stylingMode = 'contained';
-      addRowItem.options.elementAttr = { class: 'add-shift-btn' };
+      addRowItem.options.elementAttr = { class: 'primary' };
       addRowItem.options.onClick = () => this.onAddShift(); // Call custom method
     }
   }

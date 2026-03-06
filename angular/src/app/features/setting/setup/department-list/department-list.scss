@@ -1,7 +1,11 @@
-::ng-deep .btn-delete-red .dx-icon {
+::ng-deep .dx-link-delete {
   color: #e74c3c !important;
 }
 
-::ng-deep .btn-delete-red:hover .dx-icon {
+::ng-deep .dx-link-delete:hover .dx-icon {
   color: #c0392b !important;
+}
+
+.dx-link {
+  color: red !important;
 }

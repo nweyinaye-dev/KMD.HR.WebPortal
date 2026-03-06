@@ -38,7 +38,7 @@
 
     .dx-data-row {
       height: 60px;
-      
+
       &.dx-row-alt {
         background-color: transparent;
       }
@@ -53,8 +53,8 @@
       }
     }
 
-    .dx-datagrid-content .dx-datagrid-table .dx-row > td {
-        padding: 12px 15px;
+    .dx-datagrid-content .dx-datagrid-table .dx-row>td {
+      padding: 12px 15px;
     }
   }
 }
@@ -76,13 +76,19 @@
   &.badge-active {
     background-color: #e6fcf5;
     color: #087f5b;
-    .dot { background-color: #087f5b; }
+
+    .dot {
+      background-color: #087f5b;
+    }
   }
 
   &.badge-inactive {
     background-color: #fff5f5;
     color: #c92a2a;
-    .dot { background-color: #c92a2a; }
+
+    .dot {
+      background-color: #c92a2a;
+    }
   }
 
   .dot {
@@ -143,52 +149,21 @@
     width: 100%;
 
     .dx-texteditor-container {
+      background: transparent;
+
+      .dx-texteditor-input {
+        padding: 8px 0;
         background: transparent;
-        .dx-texteditor-input {
-            padding: 8px 0;
-            background: transparent;
-        }
-    }
-    
-    &.dx-state-focused {
-        box-shadow: none;
-    }
-  }
-}
-
-::ng-deep {
-  .add-shift-btn {
-    background-color: #fd7e14 !important;
-    border-color: #fd7e14 !important;
-    border-radius: 8px !important;
-    padding: 4px 16px !important;
-    
-    .dx-button-content {
-      padding: 6px 12px;
-      .dx-icon { color: #fff; }
-      .dx-button-text { color: #fff; text-transform: none; font-weight: 500; }
-    }
-
-    &:hover {
-        background-color: #e8590c !important;
-        border-color: #e8590c !important;
-    }
-  }
-
-  .dx-button {
-      &.dx-button-mode-contained {
-          &.dx-button-normal {
-              background-color: #fff;
-              border-color: #dee2e6;
-              border-radius: 4px;
-              
-              &:hover {
-                  background-color: #f8f9fa;
-              }
-          }
       }
+    }
+
+    &.dx-state-focused {
+      box-shadow: none;
+    }
   }
 }
+
+// Removed overriding styles for dx-button-mode-contained to allow global theme to apply
 
 .shift-popup {
   ::ng-deep {
@@ -213,7 +188,7 @@
             background: transparent;
 
             &::after {
-                border-bottom: 2px solid #fd7e14;
+              border-bottom: 2px solid #fd7e14;
             }
           }
         }
@@ -283,8 +258,8 @@
         }
 
         .small-switch {
-            transform: scale(0.7);
-            height: 20px;
+          transform: scale(0.7);
+          height: 20px;
         }
       }
     }
@@ -293,11 +268,11 @@
 
 .form-footer {
   .status-switch {
-      &.dx-switch-on {
-          .dx-switch-container {
-              background-color: #40c057;
-          }
+    &.dx-switch-on {
+      .dx-switch-container {
+        background-color: #40c057;
       }
+    }
   }
 
   .btn-save {
@@ -305,14 +280,14 @@
     border-color: #1e293b !important;
     border-radius: 6px !important;
     min-width: 100px;
-    
+
     .dx-button-content {
       color: #fff;
     }
   }
 
   .btn-cancel {
-      border-radius: 6px !important;
-      min-width: 80px;
+    border-radius: 6px !important;
+    min-width: 80px;
   }
 }
