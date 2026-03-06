@@ -20,6 +20,14 @@ const routes: Routes = [
         loadComponent: () => import('./features/test/test').then((c) => c.Test)
       },
       {
+        path: 'setting/user-setup',
+        loadComponent: () => import('./features/user-setup-form/user-setup-form').then((c) => c.UserSetupForm)
+      },
+            {
+        path: 'setting/department-list',
+        loadComponent: () => import('./features/department-list/department-list').then((c) => c.DepartmentList) 
+      },
+      {
         path: 'analytics',
         loadComponent: () => import('./demo/dashboard/dash-analytics.component').then((c) => c.DashAnalyticsComponent)
       },

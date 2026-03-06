@@ -85,7 +85,7 @@ export const NavigationItems: NavigationItem[] = [
             id: 'user',
             title: 'User Setup',
             type: 'item',
-            url: '/component/button'
+            url: '/setting/user-setup'
           },
            {
             id: 'branch',
@@ -98,6 +98,11 @@ export const NavigationItems: NavigationItem[] = [
             title: 'Department ',
             type: 'item',
             url: '/component/button'
+          },{
+            id: 'department-list',
+            title: 'Department List',
+            type: 'item',
+            url: '/setting/department-list'
           },{
             id: 'designation',
             title: 'Designation',

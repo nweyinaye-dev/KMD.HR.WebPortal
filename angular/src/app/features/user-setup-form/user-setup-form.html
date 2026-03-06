@@ -1,0 +1,93 @@
+<app-card cardTitle="User Setup">
+  <form (ngSubmit)="onSubmit()" class="user-setup-form">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            [(ngModel)]="username"
+            name="username"
+            placeholder="Enter username"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Enter password"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            class="form-control"
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+            placeholder="Confirm password"
+            [class.is-invalid]="passwordMismatch"
+            required
+          />
+          <div class="invalid-feedback" *ngIf="passwordMismatch">
+            Passwords do not match.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="branch">Branch</label>
+          <select
+            id="branch"
+            class="form-control form-select"
+            [(ngModel)]="selectedBranchId"
+            name="branch"
+            required
+          >
+            <option [ngValue]="null" disabled>Select branch</option>
+            <option *ngFor="let branch of branches" [ngValue]="branch.id">
+              {{ branch.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select
+            id="role"
+            class="form-control form-select"
+            [(ngModel)]="selectedRoleId"
+            name="role"
+            required
+          >
+            <option [ngValue]="null" disabled>Select role</option>
+            <option *ngFor="let role of roles" [ngValue]="role.id">
+              {{ role.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="passwordMismatch">
+        Submit
+      </button>
+    </div>
+  </form>
+</app-card>
