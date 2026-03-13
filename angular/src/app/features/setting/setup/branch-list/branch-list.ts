@@ -4,7 +4,6 @@ import { SharedModule } from '../../../../theme/shared/shared.module';
 
 @Component({
   selector: 'app-branch-list',
-  standalone: true,
   imports: [DxDataGridModule, SharedModule],
   templateUrl: './branch-list.html',
   styleUrl: './branch-list.scss'

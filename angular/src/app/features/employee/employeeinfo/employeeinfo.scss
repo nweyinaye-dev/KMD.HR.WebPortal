@@ -1,0 +1,98 @@
+/* Status Badges with Dot */
+.status-badge-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  &.active {
+    background-color: #dcfce7;
+    color: #15803d;
+    .dot { background-color: #22c55e; }
+  }
+
+  &.inactive {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    .dot { background-color: #ef4444; }
+  }
+
+  &.late {
+    background-color: #fef9c3;
+    color: #a16207;
+    .dot { background-color: #eab308; }
+  }
+}
+
+/////////////
+.shift-popup {
+  ::ng-deep {
+    .dx-popup-content {
+      padding: 0;
+      overflow: auto !important;
+    }
+
+    .dx-tabpanel {
+      .dx-tabs {
+        border-bottom: 1px solid #dee2e6;
+        background: #fff;
+        padding: 0 10px;
+
+        .dx-tab {
+          text-transform: none;
+          font-weight: 500;
+          color: #adb5bd;
+
+          &.dx-tab-selected {
+            color: #fd7e14;
+            background: transparent;
+
+            &::after {
+              border-bottom: 2px solid #fd7e14;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.tab-content {
+  padding: 1.5rem;
+  max-height: calc(90vh - 100px); // Subtracting estimated tab and footer height
+  overflow-y: auto;
+
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.5rem;
+
+    .required {
+      color: #fa5252;
+    }
+  }
+
+  ::ng-deep .dx-texteditor {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    background: #fff;
+
+    &.dx-state-focused {
+      border-color: #fd7e14;
+      box-shadow: 0 0 0 2px rgba(253, 126, 20, 0.1);
+    }
+  }
+}
+
+

@@ -1,0 +1,188 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Employees" [hidHeader]="true">
+      <app-grid-accordion 
+        title="Actions & Filters" 
+        [newButtonText]="'New Employee'"
+        (onSearch)="grid.instance.searchByText($event)"
+         (onNew)="onAddEmployee()"
+        (onExportExcel)="exportExcel()"
+        (onRefresh)="grid.instance.refresh()">
+      </app-grid-accordion>
+
+      <dx-data-grid
+        id="gridContainer"
+        [dataSource]="dataSource"
+        keyExpr="id"
+        [showBorders]="false"
+        [allowColumnResizing]="true"
+        [columnAutoWidth]="true"
+        (onEditingStart)="onEditingStart($event)"
+        (onInitNewRow)="onInitNewRow($event)"
+        (onToolbarPreparing)="onToolbarPreparing($event)"
+        class="premium-grid"
+      >
+        <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true"></dxo-editing>
+
+        <dxi-column type="buttons" caption="Action" [width]="100">
+          <dxi-button name="edit" icon="edit" hint="Edit"></dxi-button>
+          <dxi-button name="delete" icon="trash" hint="Delete" cssClass="btn-delete-red"></dxi-button>
+        </dxi-column>
+
+        <dxi-column dataField="id" [allowEditing]="false" caption="ID" [width]="50"></dxi-column>
+        <dxi-column dataField="Name" caption="Name">
+        </dxi-column>
+        <dxi-column dataField="branchName" caption="Branch Name">
+        </dxi-column>
+        <dxi-column dataField="email" caption="Email">
+        </dxi-column>
+        <dxi-column dataField="phone" caption="Phone">
+        </dxi-column>
+        <dxi-column dataField="designation" caption="Designation">
+        </dxi-column>
+        <dxi-column dataField="joinDate" caption="Join Date">
+        </dxi-column>
+        <dxi-column dataField="status" caption="Status" cellTemplate="statusTemplate">
+        </dxi-column>
+
+        <div *dxTemplate="let d of 'statusTemplate'">
+          <div class="status-badge-premium" [ngClass]="getStatusClass(d.value)">
+            <span class="dot"></span>
+            {{ d.value }}
+          </div>
+        </div>
+
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50]"></dxo-pager>
+      </dx-data-grid>
+    </app-card>
+  </div>
+</div>
+
+<dx-popup [(visible)]="isPopupVisible" [dragEnabled]="false" [hideOnOutsideClick]="false" [showCloseButton]="true"
+  [showTitle]="false" [width]="800" [height]="'auto'" [shading]="true" position="center" class="shift-popup">
+  <div *dxTemplate="let data of 'content'">
+    <div class="popup-container">
+      <dx-tab-panel [focusStateEnabled]="false" class="premium-tabs">
+        <dxi-item title="Basic Information">
+          <div class="tab-content">
+            <!-- Profile Image Section -->
+            <div class="profile-upload-card">
+              <div class="profile-placeholder">
+                <i class="dx-icon-image"></i>
+              </div>
+              <div class="upload-info">
+                <h6>Upload Profile Image</h6>
+                <p>Image should be below 4 mb</p>
+                <div class="upload-actions">
+                  <dx-button text="Upload" type="default" stylingMode="contained" class="primary"></dx-button>
+                  <dx-button text="Cancel" type="normal" stylingMode="outlined" class="btn-outline"></dx-button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Section -->
+            <div class="employee-form mt-4">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>First Name <span class="text-danger">*</span></label>
+                  <dx-text-box [(value)]="employeeData.firstName" placeholder="Enter first name"></dx-text-box>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Last Name</label>
+                  <dx-text-box [(value)]="employeeData.lastName" placeholder="Enter last name"></dx-text-box>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>Employee ID <span class="text-danger">*</span></label>
+                  <dx-text-box [(value)]="employeeData.employeeId" placeholder="Enter ID"></dx-text-box>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Joining Date <span class="text-danger">*</span></label>
+                  <dx-date-box [(value)]="employeeData.joiningDate" type="date" displayFormat="dd/MM/yyyy" placeholder="dd/mm/yyyy"></dx-date-box>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>Username <span class="text-danger">*</span></label>
+                  <dx-text-box [(value)]="employeeData.username" placeholder="Enter username"></dx-text-box>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Email <span class="text-danger">*</span></label>
+                  <dx-text-box [(value)]="employeeData.email" placeholder="Enter email"></dx-text-box>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>Password <span class="text-danger">*</span></label>
+                  <dx-text-box [(value)]="employeeData.password" mode="password" [showClearButton]="true">
+                     <dxi-button
+                      name="password"
+                      location="after"
+                      [options]="{ icon: 'eyeopen', stylingMode: 'text' }"
+                    ></dxi-button>
+                  </dx-text-box>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Confirm Password <span class="text-danger">*</span></label>
+                  <dx-text-box [(value)]="employeeData.confirmPassword" mode="password" [showClearButton]="true">
+                    <dxi-button
+                      name="password"
+                      location="after"
+                      [options]="{ icon: 'eyeopen', stylingMode: 'text' }"
+                    ></dxi-button>
+                  </dx-text-box>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>Phone Number <span class="text-danger">*</span></label>
+                  <dx-text-box [(value)]="employeeData.phoneNumber" placeholder="Enter phone number"></dx-text-box>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Company <span class="text-danger">*</span></label>
+                  <dx-select-box [dataSource]="companies" displayExpr="name" valueExpr="id" [(value)]="employeeData.companyId" placeholder="Select"></dx-select-box>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label>Department</label>
+                  <dx-select-box [dataSource]="departments" displayExpr="name" valueExpr="id" [(value)]="employeeData.departmentId" placeholder="Select"></dx-select-box>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label>Designation</label>
+                  <dx-select-box [dataSource]="designations" displayExpr="name" valueExpr="id" [(value)]="employeeData.designationId" placeholder="Select"></dx-select-box>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label>About <span class="text-danger">*</span></label>
+                  <dx-text-area [(value)]="employeeData.about" [height]="100" placeholder="About employee"></dx-text-area>
+                </div>
+              </div>
+            </div>
+          </div>
+        </dxi-item>
+        <dxi-item title="Permissions">
+           <div class="tab-content">
+             <p>Employee permissions settings will go here.</p>
+           </div>
+        </dxi-item>
+      </dx-tab-panel>
+
+      <!-- Footer Buttons -->
+      <div class="popup-footer d-flex justify-content-end mt-3 pb-3 pr-3">
+        <dx-button text="Cancel" type="normal" stylingMode="outlined" (onClick)="onCancel()" class="btn-cancel mr-2"></dx-button>
+        <dx-button text="Save" type="default" stylingMode="contained" (onClick)="onSave()" class="ml-2 btn-save primary btn-orange"></dx-button>
+      </div>
+    </div>
+  </div>
+</dx-popup>

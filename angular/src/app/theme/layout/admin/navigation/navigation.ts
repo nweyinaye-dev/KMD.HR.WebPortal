@@ -44,7 +44,7 @@ export const NavigationItems: NavigationItem[] = [
         id: 'employeeinfo',
         title: 'Employee Info',
         type: 'item',
-        url: '/analytics',
+        url: '/employee/employeeinfo',
         icon: 'feather icon-users'
       }
     ]
@@ -59,14 +59,14 @@ export const NavigationItems: NavigationItem[] = [
         id: 'attendanceupload',
         title: 'Upload',
         type: 'item',
-        url: '/employee/fingerprint-upload',
+        url: '/attendance/fingerprint-upload',
         icon: 'feather icon-home'
       },
       {
         id: 'attendancecalculation',
         title: 'Calculation',
         type: 'item',
-        url: '/employee/attendance-calculation',
+        url: '/attendance/attendance-calculation',
         icon: 'feather icon-home'
       }
     ]

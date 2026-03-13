@@ -49,14 +49,24 @@ const routes: Routes = [
         loadComponent: () => import('./features/setting/setup/designation-list/designation-list').then((c) => c.DesignationList)
       },
       {
-        path: 'employee/fingerprint-upload',
+        path: 'employee/employeeinfo',
         loadComponent: () =>
-          import('./features/employee/employee-fingerprint-upload/employee-fingerprint-upload').then((c) => c.EmployeeFingerprintUpload)
+          import('./features/employee/employeeinfo/employeeinfo').then((c) => c.Employeeinfo)
+      },
+      // {
+      //   path: 'employee/attendance-calculation',
+      //   loadComponent: () =>
+      //     import('./features/attendance/attendance-calculation/attendance-calculation').then((c) => c.AttendanceCalculation)
+      // },
+      {
+        path: 'attendance/fingerprint-upload',
+        loadComponent: () =>
+          import('./features/attendance/employee-fingerprint-upload/employee-fingerprint-upload').then((c) => c.EmployeeFingerprintUpload)
       },
       {
-        path: 'employee/attendance-calculation',
+        path: 'attendance/attendance-calculation',
         loadComponent: () =>
-          import('./features/employee/attendance-calculation/attendance-calculation').then((c) => c.AttendanceCalculation)
+          import('./features/attendance/attendance-calculation/attendance-calculation').then((c) => c.AttendanceCalculation)
       },
       {
         path: 'chart',
